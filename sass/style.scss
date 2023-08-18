@@ -1,0 +1,32 @@
+body {
+  /* Set the background image */
+  background-image: url("../img/darkLegion1280.jpg");
+
+  /* Center the background image */
+  background-position: center center;
+
+  /* Make the background image fixed */
+  background-attachment: fixed;
+
+  /* Resize the background image to cover the entire screen */
+  background-size: cover;
+
+  /* Set a background color as a fallback if the image is unavailable or takes time to load */
+  background-color: #000000;
+}
+
+/* styles.css */
+/* Set the background color of the navbar to black */
+.navbar {
+  background-color: black;
+}
+
+/* Set the text color of the links in the navbar (optional) */
+.navbar li a {
+  color: white;
+}
+
+/* Set the background color of the active link (optional) */
+.navbar li.active a {
+  background-color: #333; /* You can use any desired color */
+}
