@@ -8,21 +8,103 @@ body {
   /* Resize the background image to cover the entire screen */
   background-size: cover;
   /* Set a background color as a fallback if the image is unavailable or takes time to load */
-  background-color: #000000;
+  /* Extra small devices (portrait phones) */
+  /* Small devices (landscape phones) */
+  /* Medium devices (tablets) */
+  /* Large devices (desktops) */
+  /* Extra large devices (large desktops) */
+  color: whitesmoke;
+}
+@media (max-width: 575.98px) {
+  body body {
+    background-color: lightcoral;
+  }
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  body body {
+    background-color: lightskyblue;
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  body body {
+    background-color: lightgreen;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  body body {
+    background-color: lightyellow;
+  }
+}
+@media (min-width: 1200px) {
+  body body {
+    background-color: lightpink;
+  }
 }
 
-/* styles.css */
-/* Set the background color of the navbar to black */
-.navbar {
-  background-color: black;
+.active {
+  color: red !important;
 }
 
-/* Set the text color of the links in the navbar (optional) */
-.navbar li a {
+.navbar .navbar-brand {
   color: white;
 }
+.navbar .navbar-brand:hover {
+  color: red;
+}
+.navbar .nav-link.active, .navbar .navbar-nav .show > .nav-link {
+  color: red;
+}
+.navbar .dropdown-item:hover {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+.navbar li.nav-item ul {
+  background-color: rgba(51, 51, 51, 0.5);
+}
+.navbar li.nav-item a {
+  color: white;
+}
+.navbar li.nav-item a:hover {
+  color: red;
+}
 
-/* Set the background color of the active link (optional) */
-.navbar li.active a {
-  background-color: #333; /* You can use any desired color */
+/* Extra small devices (portrait phones) */
+/* Small devices (landscape phones) */
+/* Medium devices (tablets) */
+/* Large devices (desktops) */
+/* Extra large devices (large desktops) */
+/* Extra Extra  large devices (large desktops) */
+#gridHeader .row {
+  border: 1px solid black; /* Change the color and style as needed */
+  padding: 10px 0; /* Top and bottom margin */
+  margin: 10px 0; /* Top and bottom margin */
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-item.active {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+textarea {
+  resize: vertical;
+  width: 100%;
+}
+
+/* Hide edit elements by default */
+.edit-mode {
+  display: noblockne;
+}
+
+/* Show edit elements when in edit mode */
+.edit-mode.show {
+  display: block;
+}
+
+/* Show view elements by default */
+.view-mode {
+  display: block;
+}
+
+/* Hide view elements when in edit mode */
+.view-mode.hide {
+  display: none;
 }/*# sourceMappingURL=style.css.map */

@@ -3,7 +3,7 @@
  
 try {
     $query = "SELECT
-        d.definition_text AS Definition, d.img, d.link,
+        d.definition_text AS Definition, d.img, d.link, d.definition_id, d.stat,
         GROUP_CONCAT(DISTINCT s.short_name_text ORDER BY s.short_name_text SEPARATOR ', ') AS Short_Names,
         GROUP_CONCAT(DISTINCT l.long_name_text ORDER BY l.long_name_text SEPARATOR ', ') AS Long_Names,
         GROUP_CONCAT(DISTINCT t.theme_name ORDER BY t.theme_name SEPARATOR ', ') AS Themes,
@@ -26,8 +26,13 @@ try {
         definition_subject dsu ON d.definition_id = dsu.definition_id
     LEFT JOIN
         subject sub ON dsu.subject_id = sub.subject_id
+    where d.stat>0
     GROUP BY
-        d.definition_id;";
+        d.definition_id 
+                        order by d.definition_id DESC ;
+        ";
+
+
 
     $stmt = $conn->prepare($query);
     $stmt->execute();
@@ -36,7 +41,9 @@ try {
     $myValues = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Convert the array to JSON and output it
+    // var_dump($query);
     echo json_encode($myValues);
+  
 } catch (PDOException $e) {
     echo "Error executing query: " . $e->getMessage();
 }

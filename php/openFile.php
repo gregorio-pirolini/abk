@@ -5,27 +5,27 @@
  $myValues = [];
  //functions
  
-   $myValues = [
-    [
-        'definition' => 'def1',
-        'short name' => 'sn1, sn2',
-        'long name' => 'ln1',
-        'theme' => 'theme 1',
-        'subject' => 'subject 1',
-        'img' => 'img ',
-        'link' => 'link ',
-    ],
-    [
-        'definition' => 'def2',
-        'short name' => 'sn1, sn2',
-        'long name' => 'ln1',
-        'theme' => 'theme 1',
-        'subject' => 'subject 1',
-         'img' => 'img ',
-        'link' => 'link ',
-    ],
+//    $myValues = [
+//     [
+//         'definition' => 'def1',
+//         'short name' => 'sn1, sn2',
+//         'long name' => 'ln1',
+//         'theme' => 'theme 1',
+//         'subject' => 'subject 1',
+//         'img' => 'img ',
+//         'link' => 'link ',
+//     ],
+//     [
+//         'definition' => 'def2',
+//         'short name' => 'sn1, sn2',
+//         'long name' => 'ln1',
+//         'theme' => 'theme 1',
+//         'subject' => 'subject 1',
+//          'img' => 'img ',
+//         'link' => 'link ',
+//     ],
 //  Add more entries as needed
-];
+// ];
 
  
  require '../vendor/autoload.php';
@@ -55,8 +55,11 @@ $spreadsheet = $reader->load($location);
  
  
   $i=1;
+  
   foreach ($sheetData as $t) {
+    if($t[4] == null){continue;}
    $mySingleValues = [
+    
           'definition' => $t[4],
               'short name' => $t[0],
                 'long name' => $t[1],
@@ -74,12 +77,16 @@ $spreadsheet = $reader->load($location);
       $i++;
       array_push($myValues, $mySingleValues);
   }
- 
+  echo "<pre>";
+print_r($myValues);
+echo "</pre>";
+
   $statusArray = [];
 
 foreach ($myValues as $value) {
     // Check if the definition already exists in the database
     $definition = $value['definition'];
+    if ($definition == null) continue;
     $link = $value['link'];
     $img = $value['img'];
     $stmt = $conn->prepare("SELECT definition_id FROM definition WHERE definition_text = ?");
@@ -94,6 +101,7 @@ foreach ($myValues as $value) {
 
     
     // Insert data into Theme
+    if($value['theme']==""){$value['theme']="addMe";}
     $themes = array_map('trim', explode(',', $value['theme']));
     foreach ($themes as $theme) {
         // Check if the theme already exists in the database
@@ -115,6 +123,7 @@ foreach ($myValues as $value) {
 }
     
     // Insert data into subject
+    if($value['subject']==""){$value['subject']="addMe";}
     $subjects = array_map('trim', explode(',', $value['subject']));
     foreach ($subjects as $subject) {
         // Check if the subject already exists in the database
@@ -134,7 +143,7 @@ foreach ($myValues as $value) {
   }
 
 }
-    // Insert data into short_name
+// Insert data into short_name
     $shortNames = array_map('trim', explode(',', $value['short name']));
     foreach ($shortNames as $shortName) {
         $stmt = $conn->prepare("INSERT INTO short_name (short_name_text) VALUES (?)");
@@ -154,8 +163,8 @@ foreach ($longNames as $longName) {
     // $long_name_id = $conn->lastInsertId();
 
     // Insert data into definition
-    $stmt = $conn->prepare("INSERT INTO definition (definition_text,img,link) VALUES (?,?,?)");
-    $stmt->execute([$definition,$img,$link]);
+    $stmt = $conn->prepare("INSERT INTO definition (definition_text,img,link,stat) VALUES (?,?,?,?)");
+    $stmt->execute([$definition,$img,$link,1]);
     $definition_id = $conn->lastInsertId();
 
     // Associate the theme, subject, and short names with the definition
@@ -187,24 +196,45 @@ foreach ($longNames as $longName) {
     }
 
   
-
+    echo("--------------------");
+    
+echo("--------------------");
     foreach ($shortNames as $shortName) {
-        $stmt = $conn->prepare("SELECT short_name_id FROM short_name WHERE short_name_text = ?");
+        echo("--------------------");
+        echo("$short_name_id");
+echo("--------------------");
+
+        $stmt = $conn->prepare("SELECT MAX(short_name_id) as maxId FROM short_name WHERE short_name_text = ?");
         $stmt->execute([$shortName]);
         $short_name_id_result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $short_name_id = $short_name_id_result['short_name_id'];
-
-
+        $short_name_id = $short_name_id_result['maxId'];
+        echo("--------------------");
+        echo($short_name_id);
+echo("--------------------");
         foreach ($longNames as $longName) {
-            $stmt = $conn->prepare("SELECT long_name_id FROM long_name WHERE long_name_text = ?");
+            $stmt = $conn->prepare("SELECT MAX(long_name_id) as maxId  FROM long_name WHERE long_name_text = ?");
             $stmt->execute([$longName]);
             $long_name_id_result = $stmt->fetch(PDO::FETCH_ASSOC);
     
-            $long_name_id = $long_name_id_result['long_name_id'];
-        // Associate the long name with the short name
+            $long_name_id = $long_name_id_result['maxId'];
+
+// Associate the long name with the short name check if exists
+$stmt = $conn->prepare("SELECT short_name_id, long_name_id FROM short_name_long_name WHERE short_name_id = ? AND long_name_id = ?");
+    $stmt->execute([$short_name_id, $long_name_id]);
+    $short_name_long_name_result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($short_name_long_name_result !== false) {
+        // Subject exists, fetch the ID
+        continue;
+    } else {
+
+
+        // Associate the long name with the short name ADD
         $stmt = $conn->prepare("INSERT INTO short_name_long_name (short_name_id, long_name_id) VALUES (?, ?)");
-        $stmt->execute([$short_name_id, $long_name_id]);
+        $stmt->execute([$short_name_id, $long_name_id]); }
+
+
     }
         $stmt = $conn->prepare("INSERT INTO definition_short_name (short_name_id, definition_id) VALUES (?, ?)");
         $stmt->execute([$short_name_id, $definition_id]);
@@ -219,3 +249,6 @@ foreach ($longNames as $longName) {
 // Return the status array as a JSON response
 echo json_encode($statusArray);
 ?>
+
+
+

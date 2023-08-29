@@ -1,6 +1,8 @@
+  
+
 <nav class="navbar navbar-expand-lg">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand <?php if ($filename == "abk.php") echo "active" ?>" href="abk.php">ABK</a>
             <button
               class="navbar-toggler"
               type="button"
@@ -14,27 +16,34 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
+              <li class="nav-item">
+          <a class="nav-link <?php if ($filename == "index.php") echo "active" ?>" href="index.php">Home</a>
+        </li>
                 
-                
                 <li class="nav-item">
-                  <a class="nav-link" href="#"  data-class="NT1" >Network Technik</a>
+                  <a class="nav-link <?php if ($filename=="todo.php") echo "active" ?>" href="todo.php" >TO DO</a>
                 </li>
+
+                <?php if ($userId == 3) { ?>
+  <li class="nav-item"> 
+    <a class="nav-link <?php if ($filename == "upload.php") echo "active" ?>" href="upload.php">upload</a>
+  </li>
+<?php } ?>
+                
+
                 <li class="nav-item dropdown">
                   <a
-                    class="nav-link dropdown-toggle"
+                    class="nav-link dropdown-toggle <?php if ($filename == "drop1.php" || $filename == "drop2.php") { echo "active"; } ?>"
                     href="#"
                     role="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    Wiso
+                    drop
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#" data-class="wiso1" >wiso 1</a></li>
-                    <li><a class="dropdown-item" href="#" data-class="wiso2">wiso 2</a></li>
+                    <li><a class="dropdown-item <?php if ($filename=="drop1.php") echo "active" ?>" href="drop1.php" >drop 1</a></li>
+                    <li><a class="dropdown-item <?php if ($filename=="drop2.php") echo "active" ?>" href="drop2.php">drop 2</a></li>
                     <li><hr class="dropdown-divider" /></li>
                     <li>
                       <a class="dropdown-item" href="#">Something else here</a>
@@ -64,4 +73,7 @@
               </form>
             </div>
           </div>
-        </nav>
+        </nav> 
+
+  
+ 

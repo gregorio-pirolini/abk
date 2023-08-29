@@ -8,7 +8,7 @@
     
        
        
-          <h2>Abkürzungen lesen!!</h2>
+          <h2>To do...</h2>
        
           <div class="row">
         <div class="col-sm mb-3 ">

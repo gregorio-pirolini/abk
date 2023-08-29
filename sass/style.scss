@@ -12,21 +12,156 @@ body {
   background-size: cover;
 
   /* Set a background color as a fallback if the image is unavailable or takes time to load */
-  background-color: #000000;
-}
+  /* Extra small devices (portrait phones) */
+    @media (max-width: 575.98px) {
+      body {
+        background-color: lightcoral;
+      }
+    }
 
-/* styles.css */
-/* Set the background color of the navbar to black */
+    /* Small devices (landscape phones) */
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      body {
+        background-color: lightskyblue;
+      }
+    }
+
+    /* Medium devices (tablets) */
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      body {
+        background-color: lightgreen;
+      }
+    }
+
+    /* Large devices (desktops) */
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+      body {
+        background-color: lightyellow;
+      }
+    }
+
+    /* Extra large devices (large desktops) */
+    @media (min-width: 1200px) {
+      body {
+        background-color: lightpink;
+      }
+    }
+
+  color: whitesmoke;
+}
+.active{color: red!important;}
+
 .navbar {
-  background-color: black;
+  .navbar-brand{
+    color: white;
+  &:hover {color: red;}
+  
+  }
+  .nav-link.active, .navbar-nav .show > .nav-link {
+    color: red;
+  }
+  .dropdown-item{
+  
+  &:hover{
+    background-color:rgba($color: #000000, $alpha: 0.5)!important;
+  }
+}
+  li.nav-item{
+    ul{background-color: rgba($color: #333333, $alpha: 0.5);}
+   a {
+    color: white;
+  
+    &:hover {
+      color: red;
+    }
+   
+   
+  }
+}
+}
+  /* Extra small devices (portrait phones) */
+  @media (max-width: 575.98px) {
+    body {
+      // background-color: lightcoral;
+    }
+  }
+
+  /* Small devices (landscape phones) */
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    body {
+      // background-color: lightskyblue;
+    }
+  }
+
+  /* Medium devices (tablets) */
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    body {
+      // background-color: lightgreen;
+    }
+  }
+
+  /* Large devices (desktops) */
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    body {
+      // background-color: lightyellow;
+    }
+  }
+
+  /* Extra large devices (large desktops) */
+  @media (min-width: 1200px)and (max-width: 1399.98px) {
+    body {
+      // background-color: lightpink;
+    }
+  }
+ /* Extra Extra  large devices (large desktops) */
+ @media (min-width: 1400px) {
+  body {
+    // background-color: orange;
+  }
+}
+ 
+ 
+#gridHeader{
+  .row {
+    border: 1px solid black; /* Change the color and style as needed */
+    padding: 10px 0; /* Top and bottom margin */
+    margin: 10px 0; /* Top and bottom margin */
+    background-color: rgba($color:#000000, $alpha: 0.3);
+  } }
+
+  .dropdown-item.active{
+    background-color:rgba($color:#000000, $alpha: 0.3)!important;}
+
+
+    textarea {
+      resize: vertical;
+      width: 100%;
+    }
+/* Hide edit elements by default */
+.edit-mode {
+  display: noblockne;
+   
 }
 
-/* Set the text color of the links in the navbar (optional) */
-.navbar li a {
-  color: white;
+/* Show edit elements when in edit mode */
+.edit-mode.show {
+  display: block;
 }
 
-/* Set the background color of the active link (optional) */
-.navbar li.active a {
-  background-color: #333; /* You can use any desired color */
+/* Show view elements by default */
+.view-mode {
+  display: block;
 }
+
+/* Hide view elements when in edit mode */
+.view-mode.hide {
+  display: none;
+}
+
+ .sub{
+
+ 
+input {
+   
+ 
+}}
