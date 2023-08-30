@@ -29,7 +29,7 @@ try {
     where d.stat>0
     GROUP BY
         d.definition_id 
-                        order by d.definition_id DESC ;
+                        order by d.img asC ;
         ";
 
 
