@@ -16,7 +16,7 @@
             <li> find new pix</li> 
             <li> put online</li> 
             <li>menu come and go</li> 
-            
+            <li>python get wili link</li> 
             <li>remove double entry on upload for abk x</li>
             <li> edit text x</li> 
             <li> load list all  X</li> 

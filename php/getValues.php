@@ -26,10 +26,11 @@ try {
         definition_subject dsu ON d.definition_id = dsu.definition_id
     LEFT JOIN
         subject sub ON dsu.subject_id = sub.subject_id
-    where d.stat>0
+    where d.stat>0 
+    -- and d.img='x'
     GROUP BY
         d.definition_id 
-                        order by d.img asC ;
+                        -- order by d.img ASC;
         ";
 
 

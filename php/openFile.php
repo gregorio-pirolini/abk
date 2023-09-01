@@ -77,9 +77,9 @@ $spreadsheet = $reader->load($location);
       $i++;
       array_push($myValues, $mySingleValues);
   }
-  echo "<pre>";
-print_r($myValues);
-echo "</pre>";
+//   echo "<pre>";
+// print_r($myValues);
+// echo "</pre>";
 
   $statusArray = [];
 
@@ -196,22 +196,22 @@ foreach ($longNames as $longName) {
     }
 
   
-    echo("--------------------");
+//     echo("--------------------");
     
-echo("--------------------");
-    foreach ($shortNames as $shortName) {
-        echo("--------------------");
-        echo("$short_name_id");
-echo("--------------------");
+// echo("--------------------");
+     foreach ($shortNames as $shortName) {
+//         echo("--------------------");
+//         echo("$short_name_id");
+// echo("--------------------");
 
         $stmt = $conn->prepare("SELECT MAX(short_name_id) as maxId FROM short_name WHERE short_name_text = ?");
         $stmt->execute([$shortName]);
         $short_name_id_result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $short_name_id = $short_name_id_result['maxId'];
-        echo("--------------------");
-        echo($short_name_id);
-echo("--------------------");
+//         echo("--------------------");
+//         echo($short_name_id);
+// echo("--------------------");
         foreach ($longNames as $longName) {
             $stmt = $conn->prepare("SELECT MAX(long_name_id) as maxId  FROM long_name WHERE long_name_text = ?");
             $stmt->execute([$longName]);
