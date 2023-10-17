@@ -1,10 +1,15 @@
-<?php 
+<?php
 include 'connect.php';
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Retrieve the values from the POST data
-    $dataId = $_POST["dataId"];
+
+
+
+
 
     // Update the database
+
+    $dataId = $_POST["dataId"];
     $stmt = $conn->prepare("UPDATE definition SET stat = ? WHERE definition_id = ?");
     $stmt->execute([0, $dataId]);
 
@@ -17,6 +22,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 } else {
     echo "Invalid request.";
 }
-
-
-?>

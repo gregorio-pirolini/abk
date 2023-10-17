@@ -51,7 +51,8 @@ body {
 .navbar .navbar-brand:hover {
   color: red;
 }
-.navbar .nav-link.active, .navbar .navbar-nav .show > .nav-link {
+.navbar .nav-link.active,
+.navbar .navbar-nav .show > .nav-link {
   color: red;
 }
 .navbar .dropdown-item:hover {
@@ -107,4 +108,88 @@ textarea {
 /* Hide view elements when in edit mode */
 .view-mode.hide {
   display: none;
+}
+
+.definition .view-mode {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid black;
+  padding: 2px;
+}
+
+.view-mode a {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid black;
+  padding: 2px;
+}
+.view-mode a:hover {
+  color: #f03b4d;
+}
+
+#new #imagePreview {
+  display: inline-grid;
+  width: 100%;
+}
+#new label {
+  display: inline;
+  cursor: pointer;
+  color: white; /* Default color when unchecked */
+  font-size: 1.5rem; /* Set the font size to make it look like an h3 */
+  margin-bottom: 10px; /* Add some margin for spacing */
+}
+#new label:hover {
+  pointer-events: cursor;
+}
+#new .bigger {
+  display: block;
+  cursor: pointer;
+  color: white; /* Default color when unchecked */
+  font-size: 1.5rem; /* Set the font size to make it look like an h3 */
+}
+#new checkbox {
+  cursor: pointer;
+}
+#new input[type=file] {
+  width: 100%; /* Ensure the input takes up the full width */
+}
+#new input[type=file]:hover {
+  cursor: pointer;
+}
+#new input[type=text] {
+  width: 100%; /* Ensure the input takes up the full width */
+}
+#new textarea {
+  width: 100%;
+  height: 50px;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+}
+#new .myCheckbox:checked + .myLabel {
+  color: red;
+}
+#new .form-check-input:checked + .form-check-label {
+  color: red; /* Change the label's color when the checkbox is checked */
+}
+#new #aT,
+#new #aS {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.valid-feedback,
+.greg-valid-feedback {
+  color: greenyellow;
+}
+
+.invalid-feedback,
+.greg-invalid-feedback {
+  color: red;
+}
+
+.form-text {
+  display: grid;
 }/*# sourceMappingURL=style.css.map */

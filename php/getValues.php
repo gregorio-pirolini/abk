@@ -1,13 +1,15 @@
 <?php
- include 'connect.php';
- 
+include 'connect.php';
+
 try {
     $query = "SELECT
         d.definition_text AS Definition, d.img, d.link, d.definition_id, d.stat,
-        GROUP_CONCAT(DISTINCT s.short_name_text ORDER BY s.short_name_text SEPARATOR ', ') AS Short_Names,
-        GROUP_CONCAT(DISTINCT l.long_name_text ORDER BY l.long_name_text SEPARATOR ', ') AS Long_Names,
-        GROUP_CONCAT(DISTINCT t.theme_name ORDER BY t.theme_name SEPARATOR ', ') AS Themes,
-        GROUP_CONCAT(DISTINCT sub.subject_name ORDER BY sub.subject_name SEPARATOR ', ') AS Subjects 
+        GROUP_CONCAT(DISTINCT s.short_name_text ORDER BY s.short_name_text SEPARATOR '; ') AS Short_Names,
+        GROUP_CONCAT(DISTINCT s.short_name_id ORDER BY s.short_name_id SEPARATOR '; ') AS Short_Names_Ids,
+        GROUP_CONCAT(DISTINCT l.long_name_text ORDER BY l.long_name_text SEPARATOR ': ') AS Long_Names,
+        GROUP_CONCAT(DISTINCT l.long_name_id ORDER BY l.long_name_id SEPARATOR '; ') AS Long_Names_Ids,
+        GROUP_CONCAT(DISTINCT t.theme_name ORDER BY t.theme_name SEPARATOR '; ') AS Themes,
+        GROUP_CONCAT(DISTINCT sub.subject_name ORDER BY sub.subject_name SEPARATOR '; ') AS Subjects 
     FROM
         definition d
     LEFT JOIN
@@ -27,24 +29,24 @@ try {
     LEFT JOIN
         subject sub ON dsu.subject_id = sub.subject_id
     where d.stat>0 
-    -- and d.img='x'
+    
     GROUP BY
         d.definition_id 
-                        -- order by d.img ASC;
+                        order by Short_Names ASC;
         ";
 
 
 
     $stmt = $conn->prepare($query);
     $stmt->execute();
-    
+
     // Fetch the results into an associative array
     $myValues = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Convert the array to JSON and output it
     // var_dump($query);
     echo json_encode($myValues);
-  
+
 } catch (PDOException $e) {
     echo "Error executing query: " . $e->getMessage();
 }
