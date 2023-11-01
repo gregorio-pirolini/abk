@@ -18,6 +18,7 @@ let aTButton = document.getElementById("resetThemes");
 let image = document.getElementById("image"); //the input
 const images = document.getElementById("images"); //the preview pix
 const preview = images.getElementsByTagName("img")[0];
+const src = document.getElementById("imageLink");
 const resetimagePath = "images/download.jpg";
 // let whereInput = e.target.id;
 let allSubjects;
@@ -168,23 +169,23 @@ let checkRadioStatus = (subTheme) => {
   let arr;
   let atleastOneChecked;
   let div;
-  let id;
+
   switch (subTheme) {
     case "theme":
       arr = aT.querySelectorAll('input[type="checkbox"]');
       div = aT;
-      id = "aT";
+
       break;
     case "subject":
       arr = aS.querySelectorAll('input[type="checkbox"]');
       div = aS;
-      id = "aS";
+
       break;
     default:
       break;
   }
-  arr.forEach((subject) => {
-    if (subject.checked) {
+  arr.forEach((el) => {
+    if (el.checked) {
       atleastOneChecked = true;
     }
   });
@@ -363,11 +364,11 @@ function uploadImageToDb() {
 
         if (data.success == true) {
           preview.src = data.path;
-
+          src.textContent = data.path;
           showSuccessMessageThere(image, data.message);
         } else if (data.success == false) {
           preview.src = "images/download.jpg";
-
+          src.textContent = "";
           showErrorMessageThere(image, data.message);
         }
       })
@@ -435,7 +436,7 @@ let resetAll = (e) => {
   // reset picture
 
   preview.src = resetimagePath;
-
+  src.textContent = "";
   var feedbackElementsAs = aS.querySelectorAll(
     ".valid-feedback, .invalid-feedback"
   );
@@ -512,52 +513,57 @@ function processForm(e, form) {
 
   console.log("ポスト !!");
 
-  const formValues = [];
-  const formData = new FormData(form);
-  formData.forEach((value, key) => {
-    if (key.startsWith("theme") || key.startsWith("subject")) {
-      // Skip this iteration for "theme" or "subject" keys
-      return;
-    }
-    console.log("value: " + value);
-    if (value && value.trim) {
-      value = value.trim(); // Trim leading and trailing white spaces
-    }
-    console.log(`Field Name: ${key}, Field Value: ${value}`);
-    formValues.push({ name: key, value: value });
-  });
+  const subjectCheckboxes = document.querySelectorAll(
+    'input[name^="subject"]:checked'
+  );
 
-  const checkSubject = document.querySelectorAll(".subject");
-  const checkTheme = document.querySelectorAll(".theme");
-  const valueSubject = [];
-  const valueTheme = [];
+  const selectedSubject = Array.from(subjectCheckboxes).map((cb) => cb.value);
+  localStorage.setItem("selectedSubject", JSON.stringify(selectedSubject));
 
-  checkSubject.forEach((checkbox) => {
-    if (checkbox.checked) {
-      valueSubject.push(checkbox.value);
-    }
-  });
-  checkTheme.forEach((checkbox) => {
-    if (checkbox.checked) {
-      valueTheme.push(checkbox.value);
-    }
-  });
+  const themeCheckboxes = document.querySelectorAll(
+    'input[name^="theme"]:checked'
+  );
 
-  // Push selected subjects and themes as separate key-value pairs
-  formValues.push({ name: "selectedSubjects", value: valueSubject });
-  formValues.push({ name: "selectedThemes", value: valueTheme });
+  const selectedTheme = Array.from(themeCheckboxes).map((cb) => cb.value);
+  localStorage.setItem("selectedTheme", JSON.stringify(selectedTheme));
 
-  console.log("...formValues...");
-  console.log(formValues);
+  let longName = document.getElementById("longName").value;
+  let shortName = document.getElementById("shortName").value;
+  let def = document.getElementById("def").value;
+  let link = document.getElementById("link").value;
+  let img = document.getElementById("imageLink").textContent;
 
-  sendToPhp(formValues);
+  sendToPhp(
+    longName,
+    shortName,
+    def,
+    link,
+    selectedSubject,
+    selectedTheme,
+    img
+  );
 }
 
 // send to php
-let sendToPhp = (formValues) => {
-  return;
-  // Convert formValues to a JSON string
-  const jsonData = JSON.stringify(formValues);
+let sendToPhp = (
+  longName,
+  shortName,
+  def,
+  link,
+  selectedSubject,
+  selectedTheme,
+  src
+) => {
+  // Create an object to hold the data you want to send
+  const data = {
+    longName,
+    shortName,
+    def,
+    link,
+    selectedSubject,
+    selectedTheme,
+    src,
+  };
 
   success.classList.add("d-none");
   error.classList.add("d-none");
@@ -568,7 +574,7 @@ let sendToPhp = (formValues) => {
   // Define the fetch options
   const options = {
     method: "POST",
-    body: jsonData,
+    body: JSON.stringify(data), // Convert data to JSON and send it in the request body
     headers: {
       "Content-Type": "application/json",
     },

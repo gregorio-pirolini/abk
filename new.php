@@ -21,7 +21,7 @@
 
     <div class="col-md-4 col-sm-12">
       <label for="shortName" class="form-label">Short Name:</label>
-      <input type="text" id="shortName" name="shortName" class="form-control" aria-label="short Name input"
+      <input type="text" id="shortName" name="shortName" class="form-control" aria-label="short Name input" required
         aria-describedby="shortNameHelp">
       <div class="personal-feedback">personal message</div>
       <div class="valid-feedback">looks good!</div>
@@ -57,7 +57,7 @@
 
     <div id="aT" class="col-md-6 col-sm-12 mt-1">
       <label class="bigger">Themes:</label>
-      <fieldset class="checkbox-container" aria-label="Select Themes" aria-describedby="checkboxThemesHelp">
+      <fieldset id="fieldAT" class="checkbox-container" aria-label="Select Themes" aria-describedby="checkboxThemesHelp">
 
       </fieldset>
       <div class="personal-feedback">personal message</div>
@@ -71,7 +71,7 @@
 
     <div id="aS" class="col-md-6 col-sm-12  mt-1">
       <label class="bigger">Subjects:</label>
-      <fieldset class="checkbox-container" aria-label="Select Subjects" aria-describedby="checkboxSubjectsHelp">
+      <fieldset id="fieldAS" class="checkbox-container" aria-label="Select Subjects" aria-describedby="checkboxSubjectsHelp">
 
       </fieldset>
       <div class="personal-feedback">personal message</div>
@@ -151,6 +151,8 @@
       <div id="imagePreview" class="mb-3"><span class="preview">image preview:</span>
         <img src="images/download.jpg" alt="the Picture">
       </div>
+      <p id="imageLink"> imageLinkimageLinkimageLinkimageLinkimageLink
+</p>
     </div>
 
     <div class="alert alert-success d-none " role="alert" id="success-alert">

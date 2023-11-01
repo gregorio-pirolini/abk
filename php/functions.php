@@ -3,13 +3,37 @@
 $random = time();
 
 
-$themeLength = 5;
-$subjectLength = 5;
+$themeLength = 100;
+$subjectLength = 100;
+$lengthLongName =  255;
+$lengthShortName = 100 ;
+$lengthDef = 60000;
+$lengthLink = 500;
+$lengthImage = 100;
 
 function sanitizeAndTrim($val)
 {
     $val = trim($val);
     return htmlspecialchars($val, ENT_QUOTES, 'UTF-8');
+}
+// Check if the string is not empty
+function testNotEmpty($val)
+{
+    
+    if (empty($val)) {
+        return false;
+    }
+    return true;
+}
+// Check if the array is not empty
+function moreThan0Length($arr)
+{
+
+    $answer = false  ;
+    if(count($arr)>0) {
+        $answer = true ;
+    }
+    return $answer;
 }
 
 function testLength($val, $length)
